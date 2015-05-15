@@ -19,6 +19,7 @@ package {
 		public var curLevel:int;
 		public var startSpots:Array;
 		public var goals:Array;
+		private var reverse:Boolean;
 
 		private static var gravity:Number = 1;
 		
@@ -37,7 +38,7 @@ package {
 			renderer = new Renderer();
 			blocks = new Vector.<JellyBlock>();
 			editor = new Editor(this);
-			curLevel = 0;
+			reverse = false;
 			
 			addChild(renderer);
 			editor.loadLevel(1);
@@ -105,8 +106,10 @@ package {
 		public function updatePhysics():void {
 			//Update player velocity if not touching jelly
 			if (!player.grounded) {
-				if (player.moveRight) player.velocity.x += 1;
-				if (player.moveLeft) player.velocity.x -= 1;
+				if (reverse && player.moveRight) player.velocity.x -= 1;
+				if (reverse && player.moveLeft) player.velocity.x += 1;
+				if (!reverse && player.moveRight) player.velocity.x += 1;
+				if (!reverse && player.moveLeft) player.velocity.x -= 1;
 			}
 			//Update jelly points
 			for (var i:int = 0; i < blocks.length; i++) {
@@ -306,9 +309,11 @@ package {
 				if (curLevel >= 3) {
 					if (player.pos.x < 640) {
 						player.velocity.y += gravity;
+						reverse = false;
 						if (player.pos.y > 1000) resetPlayer();
 					} else if (player.pos.x > 640) {
 						player.velocity.y -= gravity;
+						reverse = true;
 						if (player.pos.y < -200) resetPlayer();
 					}
 				} else {
@@ -356,13 +361,13 @@ package {
 		
 		public function victoryCheck():void {
 			if (curLevel == 1) {
-				if (Point.distance(player.pos, goals[0]) < 10) editor.loadLevel(2);
+				if (Point.distance(player.pos, goals[0]) < 15) editor.loadLevel(2);
 			} else if (curLevel == 2) {
-				if (Point.distance(player.pos, goals[1]) < 10) editor.loadLevel(3);
+				if (Point.distance(player.pos, goals[1]) < 15) editor.loadLevel(3);
 			} else if (curLevel == 3) {
-				if (Point.distance(player.pos, goals[2]) < 10) editor.loadLevel(4);
+				if (Point.distance(player.pos, goals[2]) < 15) editor.loadLevel(4);
 			} else if (curLevel == 4) {
-				if (Point.distance(player.pos, goals[3]) < 10) editor.loadLevel(1);
+				if (Point.distance(player.pos, goals[3]) < 15) editor.loadLevel(1);
 			}
 		}
 	}

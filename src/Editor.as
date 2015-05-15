@@ -137,7 +137,7 @@ package {
 		}
 		
 		public function printLevel():void {
-			var file:File = File.desktopDirectory.resolvePath("Rebound/levels/4.txt");
+			var file:File = File.desktopDirectory.resolvePath("Rebound/levels/3.txt");
 			var fileStream:FileStream = new FileStream();
 			fileStream.open(file, FileMode.WRITE);
 			for (var i:int = 0; i < size; i++) {
