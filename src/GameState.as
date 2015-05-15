@@ -387,7 +387,9 @@ package {
 			} else if (curLevel == 4) {
 				if (Point.distance(player.pos, goals[3]) < 15) editor.loadLevel(5);
 			} else if (curLevel == 5) {
-				if (Point.distance(player.pos, goals[4]) < 15) editor.loadLevel(1);
+				if (Point.distance(player.pos, goals[4]) < 15) editor.loadLevel(6);
+			} else if (curLevel == 6) {
+				if (Point.distance(player.pos, goals[5]) < 15) editor.loadLevel(1);
 			}
 		}
 	}
