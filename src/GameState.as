@@ -31,8 +31,8 @@ package {
 		public var pointsEnabled:Boolean = false;
 		
 		public function GameState() {
-			goals = new Array(new Point(660, 225), new Point(1030, 480), new Point(1135, 130), new Point(110, 545));
-			startSpots = new Array(new Point(350, 0), new Point(200, 0), new Point(250, 0), new Point(1100, 768));
+			goals = new Array(new Point(660, 225), new Point(1030, 480), new Point(1135, 130), new Point(110, 545), new Point(70, 608), new Point(1220, 410));
+			startSpots = new Array(new Point(350, 0), new Point(200, 0), new Point(250, 0), new Point(1100, 768), new Point(1100, 768), new Point(75, 0));
 			controller = new InputController(this);
 			player = new Player(350, 0, 10);
 			renderer = new Renderer();
@@ -50,7 +50,7 @@ package {
 		}
 		
 		public function update(e:EnterFrameEvent):void {
-			renderer.drawQuadrants(curLevel, curLevel >= 3);
+			renderer.drawQuadrants(curLevel);
 			renderer.drawGround(blocks);
 			if (pointsEnabled) renderer.drawPoints(blocks);
 			renderer.drawPlayer(player);
@@ -306,7 +306,7 @@ package {
 			}
 			
 			if (!player.grounded) {
-				if (curLevel >= 3) {
+				if (curLevel >= 3 && curLevel < 6) {
 					if (player.pos.x < 640) {
 						player.velocity.y += gravity;
 						reverse = false;
@@ -315,6 +315,24 @@ package {
 						player.velocity.y -= gravity;
 						reverse = true;
 						if (player.pos.y < -200) resetPlayer();
+					}
+				} else if (curLevel == 6) {
+					if (player.pos.x < 426) {
+						player.velocity.y += gravity;
+						reverse = false;
+						if (player.pos.y > 1000) resetPlayer();
+					} else if (player.pos.x > 426 && player.pos.x < 852) {
+						player.velocity.y -= gravity;
+						reverse = true;
+						if (player.pos.y < -200) resetPlayer();
+					} else if (player.pos.x > 852 && player.pos.y < 384) {
+						player.velocity.y -= gravity;
+						reverse = true;
+						if (player.pos.y < -200) resetPlayer();
+					} else {
+						player.velocity.y += gravity;
+						reverse = false;
+						if (player.pos.y > 1500) resetPlayer();
 					}
 				} else {
 					player.velocity.y += gravity;
@@ -367,7 +385,9 @@ package {
 			} else if (curLevel == 3) {
 				if (Point.distance(player.pos, goals[2]) < 15) editor.loadLevel(4);
 			} else if (curLevel == 4) {
-				if (Point.distance(player.pos, goals[3]) < 15) editor.loadLevel(1);
+				if (Point.distance(player.pos, goals[3]) < 15) editor.loadLevel(5);
+			} else if (curLevel == 5) {
+				if (Point.distance(player.pos, goals[4]) < 15) editor.loadLevel(1);
 			}
 		}
 	}

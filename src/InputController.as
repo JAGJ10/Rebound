@@ -41,6 +41,8 @@ package {
 			if (e.keyCode == Keyboard.NUMBER_2) state.editor.loadLevel(2);
 			if (e.keyCode == Keyboard.NUMBER_3) state.editor.loadLevel(3);
 			if (e.keyCode == Keyboard.NUMBER_4) state.editor.loadLevel(4);
+			if (e.keyCode == Keyboard.NUMBER_5) state.editor.loadLevel(5);
+			if (e.keyCode == Keyboard.NUMBER_6) state.editor.loadLevel(6);
 		}
 	}
 }

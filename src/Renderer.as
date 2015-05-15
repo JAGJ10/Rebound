@@ -49,14 +49,23 @@ package {
 			}
 		}
 		
-		public function drawQuadrants(level:int, enabled:Boolean):void {
+		public function drawQuadrants(level:int):void {
 			graphics.clear();
-			if (enabled) {
+			if (level >= 3 && level < 6) {
 				graphics.lineStyle(1, 0xFF0000, 0.0);
 				graphics.beginFill(0x00000, 0.5);
 				graphics.drawRect(0, 0, 640, 768);
 				graphics.beginFill(0xB0B0B0, 0.8);
 				graphics.drawRect(640, 0, 640, 768);
+			} else if (level == 6) {
+				graphics.lineStyle(1, 0xFF0000, 0.0);
+				graphics.beginFill(0x00000, 0.5);
+				graphics.drawRect(0, 0, 426, 768);
+				graphics.beginFill(0xB0B0B0, 0.8);
+				graphics.drawRect(426, 0, 426, 768);
+				graphics.drawRect(852, 0, 428, 384);
+				graphics.beginFill(0x00000, 0.5);
+				graphics.drawRect(852, 384, 428, 384);
 			}
 			
 			graphics.lineStyle(3, 0xFF00CC);
@@ -65,6 +74,8 @@ package {
 			else if (level == 2) graphics.drawCircle(1030, 480, 10);
 			else if (level == 3) graphics.drawCircle(1135, 130, 10);
 			else if (level == 4) graphics.drawCircle(110, 545, 10);
+			else if (level == 5) graphics.drawCircle(70, 608, 10);
+			else if (level == 6) graphics.drawCircle(1220, 410, 10);
 		}
 	}
 }
